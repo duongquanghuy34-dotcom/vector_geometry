@@ -202,7 +202,7 @@ void VECTOR::operator-=(const VECTOR& b){
     }
     else{
         for(size_t i=0;i<this->Size();i++){
-            this->vector[i]=this->vector[i]+b(i);
+            this->vector[i]=this->vector[i]-b(i);
         }
     }
 }
