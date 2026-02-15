@@ -40,59 +40,59 @@ bool geomVectorCheckZero(const VECTOR& a){
     return true;
 }
 // Add two vectors
-VECTOR operator+(const VECTOR& a, const VECTOR& b){
-    if(!geomVectorCheckSize(a, b)){
+VECTOR VECTOR::operator+( const VECTOR& b) const{
+    if(!geomVectorCheckSize((*this), b)){
         throw std::invalid_argument("Vectors must have the same dimension");
     }
 
-    std::vector<double> d(a.Size(), 0);
+    std::vector<double> d(this->Size(), 0);
     VECTOR c(d);
 
-    for(size_t i = 0; i < a.Size(); i++){
-        c(i, a(i) + b(i));
+    for(size_t i = 0; i < this->Size(); i++){
+        c(i, vector[i] + b(i));
     }
 
     return c;
 }
 
 // Subtract two vectors
-VECTOR operator-(const VECTOR& a, const VECTOR& b){
-    if(!geomVectorCheckSize(a, b)){
+VECTOR VECTOR::operator-(const VECTOR& b) const{
+    if(!geomVectorCheckSize((*this), b)){
         throw std::invalid_argument("Vectors must have the same dimension");
     }
 
-    std::vector<double> d(a.Size(), 0);
+    std::vector<double> d(this->Size(), 0);
     VECTOR c(d);
 
-    for(size_t i = 0; i < a.Size(); i++){
-        c(i, a(i) - b(i));
+    for(size_t i = 0; i < this->Size(); i++){
+        c(i, vector[i] - b(i));
     }
 
     return c;
 }
 
 // Compute dot product of two vectors
-double operator*(const VECTOR& a, const VECTOR& b){
-    if(!geomVectorCheckSize(a, b)){
+double VECTOR::operator*( const VECTOR& b) const{
+    if(!geomVectorCheckSize((*this), b)){
         throw std::invalid_argument("Vectors must have the same dimension");
     }
 
     double c = 0;
 
-    for(size_t i = 0; i < a.Size(); i++){
-        c += a(i) * b(i);
+    for(size_t i = 0; i < this->Size(); i++){
+        c += this->vector[i] * b(i);
     }
 
     return c;
 }
 
 // Multiply a vector by a scalar
-VECTOR operator*(const VECTOR& a, double b){
-    std::vector<double> d(a.Size(), 0);
+VECTOR VECTOR::operator*( double b) const{
+    std::vector<double> d(this->Size(), 0);
     VECTOR c(d);
 
-    for(size_t i = 0; i < a.Size(); i++){
-        c(i, a(i) * b);
+    for(size_t i = 0; i < this->Size(); i++){
+        c(i, this->vector[i] * b);
     }
 
     return c;
@@ -105,7 +105,6 @@ double VECTOR::Length() const{
     for(size_t i = 0; i < Size(); i++){
         c += std::pow(this->operator()(i), 2);
     }
-
     return std::sqrt(c);
 }
 
@@ -144,18 +143,66 @@ VECTOR VectorCross(const VECTOR& a, const VECTOR& b){
     return c;
 }
 //vector comaprison
-bool operator==(const VECTOR& a, const VECTOR& b){
-    size_t x=a.Size();
+bool VECTOR::operator==(const VECTOR& b) const{
+    size_t x=this->Size();
     size_t y=b.Size();
     if(x != y){
         throw std::invalid_argument("Vectors must have the same dimension");
     }
     else{
         for(size_t i=0;i<x;i++){
-            if(a(i) != b(i)){
+            if(this->vector[i] != b(i)){
                 return false;
             }
         }
         return true;
+    }
+}
+bool VECTOR::operator!=(const VECTOR& b) const{
+    size_t x=this->Size();
+    size_t y=b.Size();
+    if(x != y){
+        throw std::invalid_argument("Vectors must have the same dimension");
+    }
+    else{
+        for(size_t i=0;i<x;i++){
+            if(this->vector[i] != b(i)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+//angle between 2 vectors(radian)
+double VectorAngle(const VECTOR& a, const VECTOR& b){
+    if(a.Size() != b.Size()){
+        throw std::invalid_argument("Vectors must have the same dimension");
+    }
+    else{
+        double angle=acos(a*b/(a.Length()*b.Length()));
+        return angle;
+    }
+}
+//vector addition assignment operator
+void VECTOR::operator+=(const VECTOR& b){
+    if(this->Size() != b.Size()){
+        throw std::invalid_argument("Vectors must have the same dimension");
+    }
+    else{
+        for(size_t i=0;i<this->Size();i++){
+            this->vector[i]=this->vector[i]+b(i);
+        }
+    }
+}
+
+//vector addition assignment operator
+void VECTOR::operator-=(const VECTOR& b){
+    if(this->Size() != b.Size()){
+        throw std::invalid_argument("Vectors must have the same dimension");
+    }
+    else{
+        for(size_t i=0;i<this->Size();i++){
+            this->vector[i]=this->vector[i]+b(i);
+        }
     }
 }

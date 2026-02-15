@@ -23,27 +23,37 @@ public:
     // Compute the magnitude (length) of the vector
     double Length() const;
 
+    // Add two vectors
+    VECTOR operator+(const VECTOR& b) const;
+
+    // Subtract two vectors
+    VECTOR operator-(const VECTOR& b) const;
+
+    // Compute dot product
+    double operator*(const VECTOR& b) const;
+
+    // Multiply vector by a scalar
+    VECTOR operator*(double b) const;
+    
+    //vector comparison
+    bool operator==(const VECTOR& b) const;
+    bool operator!=(const VECTOR& b) const;
+    
+    //vector addition assignment operator
+    void operator+=(const VECTOR& b);
+    
+    //subtraction assignment operator
+    void operator-=(const VECTOR& b);
+    
     // Construct a vector from std::vector<double>
     explicit VECTOR(const std::vector<double>& v) : vector(v) {};
 };
-// Add two vectors
-VECTOR operator+(const VECTOR& a, const VECTOR& b);
-
-// Subtract two vectors
-VECTOR operator-(const VECTOR& a, const VECTOR& b);
-
-// Compute dot product
-double operator*(const VECTOR& a, const VECTOR& b);
-
-// Multiply vector by a scalar
-VECTOR operator*(const VECTOR& a, double b);
-
 // Normalize vector
 VECTOR VectorNormalize(const VECTOR& a);
 
 // Compute cross product (3D only)
 VECTOR VectorCross(const VECTOR& a, const VECTOR& b);
 
-//vector comparison
-bool operator==(const VECTOR& a, const VECTOR& b);
+//angle between 2 vectors(radian)
+double VectorAngle(const VECTOR& a, const VECTOR& b);
 #endif
