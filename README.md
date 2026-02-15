@@ -43,7 +43,6 @@ vector_geometry/
 ---
 
 ## 🧠 Example Usage
-
 ```cpp
 #include "geomvector.hpp"
 
@@ -60,29 +59,20 @@ int main() {
     return 0;
 }
 ⚠️ Error Handling
-
-The library throws std::invalid_argument when:
-
-Vector dimensions do not match
-
-Index is out of range
-
-Trying to normalize the zero vector
-
-Cross product is used on non-3D vectors
+-The library throws std::invalid_argument when:
++ Vector dimensions do not match
++ Index is out of range
++ Trying to normalize the zero vector
++ Cross product is used on non-3D vectors
 
 📐 Mathematical Definitions
-
 Length:
-
 |v| = sqrt(v₁² + v₂² + ... + vₙ²)
 
 Dot product:
-
 a · b = Σ (aᵢ bᵢ)
 
 Angle between vectors:
-
 θ = arccos( (a · b) / (|a||b|) )
 🛠 Build
 Using g++:g++ geomvector.cpp -std=c++17
